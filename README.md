@@ -1,10 +1,9 @@
 # final-project-robosci
 
+Initall wanted to use Gutenberg API (failed)
 
-It's time to use what we learned in class.
-
-Make Word Count program that can be used as a dataset
-Goal: merge gutenberg api with word count program
-        Then, use panda and bokeh to show the visual side of the project
+Made first revision with "letters.py", producing the graph:
         
 ![Image of plot5](https://github.com/UCMHSProgramming16-17/final-project-robosci/blob/master/tyee.png)
+
+Afterward made second revision with "letters2.py", producing the graph:
