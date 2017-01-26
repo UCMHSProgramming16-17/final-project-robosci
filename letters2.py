@@ -1,6 +1,7 @@
 import string
 import pandas as pd
 from bokeh.charts import Bar, save, output_file
+
 # open file, create string
 file = open('youth.txt', 'r')
 raw_string = file.read()
@@ -37,7 +38,9 @@ for key, value in letter_count.items():
 
 df = pd.DataFrame({'letter': letters, 'count': count})
 
-chart = Bar(df,"letter", title = "Frequency of Letters", values="count",plot_width=1280,plot_height=720,bar_width=.4)
+print(df)
+
+chart = Bar(df, label = "letter", values = 'coun', title = "Frequency of Letters", xlabel = "word", ylabel = "count",bar_width=.4)
 
 output_file = 'barchart.html'
 
