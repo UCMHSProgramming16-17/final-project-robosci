@@ -50,7 +50,7 @@ def process_data(n):
         y.append(n[x])
     return y
 
-p = figure(x_range=letters, title="Frequency of letters in books")
+p = figure(x_range=letters, title="Frequency of letters in books", plot_width=1080, plot_height=720)
 
 
 p.circle(letters, process_data(a), legend="1984", color='blue', size = 10)
