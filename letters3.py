@@ -1,54 +1,100 @@
 import string
 import pandas as pd
-from bokeh.charts import save, output_file
+from bokeh.plotting import figure, save, output_file
 
 
-# open file, create string
-a = 'youth.txt'
-b = '1984.txt'
-c = 'alice.txt'
-d = 'gatsby.txt'
-e = 'hamlet.txt'
-f = 'huckfinn.txt', 
-g = 'mobydick.txt', 
-h = 'odyssey.txt'
-i = 'warandpeice.txt'
-j = 'donquixote.txt'
-k = 'prideandprejudice.txt'
-
-filenames = [a, b, c, d, e, f, g, h, i, j, k]
-
-'''
-fillin = []
-x = 0
-
-for item in filenames:
-    fillin.append(open(item, 'r'))
-    x += 1
+def counttext(file_name):
+    file = open(file_name, 'r')
+    raw_string=file.read()
+    new_string=raw_string.lower()
+    cleaned_string=''
     
-print(fillin)
+    for char in new_string:
+    #  add only the characters we want to our cleaned string
+        if char in string.ascii_letters:
+    #         print(char)
+          cleaned_string += char + ' '
+        elif char in string.whitespace:
+    #         print(' ')
+         cleaned_string += ' '
+
+    letters = cleaned_string.split(' ')
+
+    letter_count = {}
+
+    for letter in letters:
+      if letter != '':
+         if letter in letter_count.keys():
+             letter_count[letter] += 1
+         else:
+             letter_count[letter] = 1
+    
+    return letter_count
+
+a = counttext('1984.txt')
+b = counttext('alice.txt')
+c = counttext('donquixote.txt')
+d = counttext('gatsby.txt')
+e = counttext('hamlet.txt')
+f = counttext('mobydick.txt')
+g = counttext('odyssey.txt')
+h = counttext('prideandprejudice.txt')
+i = counttext('warandpeice.txt')
+j = counttext('youth.txt')
+
+letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+def process_data(n):
+    y = []
+    for x in letters:
+        y.append(n[x])
+    return y
+
+p = figure(x_range=letters, title="Frequency of letters in books")
+
+
+p.circle(letters, process_data(a), legend="1984", color='blue', size = 10)
+p.circle(letters, process_data(b), legend="Alice in Wonderland", color='red', size = 10)
+p.circle(letters, process_data(c), legend="Don Quixote", color='green', size = 10)
+p.circle(letters, process_data(d), legend="The Great Gatbsy", color='yellow', size = 10)
+p.circle(letters, process_data(e), legend="Hamlet", color='violet', size = 10)
+p.circle(letters, process_data(f), legend="Moby Dick", color='pink', size = 10)
+p.circle(letters, process_data(g), legend="The Odyssey", color='maroon', size = 10)
+p.circle(letters, process_data(h), legend="Pride and Prejudice", color='black', size = 10)
+p.circle(letters, process_data(i), legend="War and Peace", color='navy', size = 10)
+p.circle(letters, process_data(j), legend="Youth", color='salmon', size = 10)
+
+output_file = "plot.html"
+save(p)
+
 '''
-f=[]
-def file(name):    
-    read_time = open(name, 'r')
-    raw_string = read_time.read()
-    new_string = raw_string.lower()
-    f.append(new_string)
 
-file(str(filenames))
+df = pd.DataFrame({'Letters':letters,
+                    '1984': [a[n] for n in letters],
+                    'Alice in Wonderland': [b[n] for n in letters],
+                    'Don Quixote': [c[n] for n in letters],
+                    'The Great Gatsby': [d[n] for n in letters],
+                    'Hamlet': [e[n] for n in letters],
+                    'Moby Dick': [f[n] for n in letters],
+                    'The Odyssey': [g[n] for n in letters],
+                    'Pride and Prejudice': [h[n] for n in letters],
+                    'War And Peace': [i[n] for n in letters],
+                    'Youth': [j[n] for n in letters]
+})
 
-print(f)
+
+def process_data(n):
+    y = []
+    for x in letters:
+        y.append(n[x])
+    return y
+
+p = figure(x_range=letters)
 
 
-cleaned_string = ''
+p.circle(letters, process_data(a), color='blue', size=20, alpha=.5)
 
-for char in f:
-#  add only the characters we want to our cleaned string
-    if char in string.ascii_letters:
-#         print(char)
-        cleaned_string += char + ' '
-    elif char in string.whitespace:
-#         print(' ')
-        cleaned_string += ' '
+output_file = 'scatterplot.html'
 
-letters = cleaned_string.split(' ')
+save(p)
+'''
